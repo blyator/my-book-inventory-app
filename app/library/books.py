@@ -5,7 +5,7 @@ import os
 def add_book(session: Session):
     title = input("Enter book title (Enter 0 to cancel): ").strip()
     if title == "0":
-        print("Book creation cancelled.")
+        print("Cancelled.")
         return
 
     os.system("clear")
@@ -28,7 +28,7 @@ def add_book(session: Session):
             continue
 
         if user_choice == 0:
-            print("Book creation cancelled.")
+            print("Cancelled.")
             return
 
         elif user_choice == 1:
@@ -57,7 +57,7 @@ def add_book(session: Session):
     while True:
         print("\n****************** Select a Genre ************************")
         print("0. Cancel")
-        print("1.Add New Genre")
+        print("1.Add new genre")
         print("\nSelect from existing genres:")
 
         for index, genre in enumerate(genres, start=2):
@@ -70,7 +70,7 @@ def add_book(session: Session):
             continue
 
         if user_choice == 0:
-            print("Book creation cancelled.")
+            print("Cancelled.")
             return
 
         elif user_choice == 1:
@@ -86,11 +86,145 @@ def add_book(session: Session):
                 genre_id = genres[user_choice - 2].genre_id
                 break
             except IndexError:
-                print("Invalid genre selection. please try again.")
+                print("Invalid genre. please try again.")
                 continue
 
 
     new_book = Books(title=title, author_id=author_id, genre_id=genre_id)
     session.add(new_book)
     session.commit()
-    print(f"\nSuccess! Book '{title}' added to inventory.")
+    print(f"\n'{title}' added to inventory.")
+
+
+def get_books(session: Session):
+    books = session.query(Books).all()
+    print("\nBooks in inventory:")
+    for book in books:
+        author = session.query(Authors).filter_by(author_id=book.author_id).first()
+        genre = session.query(Genres).filter_by(genre_id=book.genre_id).first()
+        print(f"Title: {book.title}, Author: {author.name if author else 'Unknown'}, Genre: {genre.genre if genre else 'Unknown'}")
+
+
+def book_by_title(session: Session, title: str):
+    book = session.query(Books).filter_by(title=title).first()
+
+    if not book:
+        print("Book not found.")
+        return None
+
+    author = session.query(Authors).filter_by(author_id=book.author_id).first()
+    genre = session.query(Genres).filter_by(genre_id=book.genre_id).first()
+
+    result = {
+        "title": book.title,
+        "author": author.name if author else "Unknown",
+        "genre": genre.genre if genre else "Unknown"
+    }
+
+    print("\nBook details:")
+    print(f"Title : {result['title']}")
+    print(f"Author: {result['author']}")
+    print(f"Genre : {result['genre']}")
+
+    return result
+
+
+def delete_book(session: Session):
+    books = session.query(Books).all()
+
+    if not books:
+        print("No books available to delete.")
+        return
+
+    while True:
+        print("\nSelect a book to delete:")
+        for book in books:
+            print(f"{book.book_id}. {book.title}")
+        print("0. Cancel")
+
+        try:
+            choice = int(input("Enter the book ID to delete: "))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+
+        if choice == 0:
+            print("Deletion cancelled.")
+            return
+
+        book_to_delete = session.query(Books).filter_by(book_id=choice).first()
+
+        if not book_to_delete:
+            print("Book not found. Please enter a valid book ID.")
+            continue
+
+        session.delete(book_to_delete)
+        session.commit()
+        print(f"Book '{book_to_delete.title}' deleted successfully.")
+        break
+
+
+def update_book(session: Session):
+    books = session.query(Books).all()
+
+    print("\nYour Books:")
+    for book in books:
+        print(f"{book.book_id}. {book.title}")
+
+    try:
+        choice = int(input("Choose a book to update (pick ID, or 0 to cancel): "))
+    except ValueError:
+        print("Invalid input.")
+        return
+
+    if choice == 0:
+        print("Update cancelled.")
+        return
+
+    book = session.query(Books).filter_by(book_id=choice).first()
+
+    new_title = input(f"New book title (leave blank to keep '{book.title}'): ").strip()
+    if new_title:
+        book.title = new_title
+
+    author = session.query(Authors).filter_by(author_id=book.author_id).first()
+    if author:
+        new_author = input(f"New author name (leave blank to keep '{author.name}'): ").strip()
+        if new_author:
+            author.name = new_author
+
+    genre = session.query(Genres).filter_by(genre_id=book.genre_id).first()
+    if genre:
+        new_genre = input(f"New genre name (leave blank to keep '{genre.genre}'): ").strip()
+        if new_genre:
+            genre.genre = new_genre
+
+    session.commit()
+    print(f"'{book.title}' updated.")
+
+
+def delete_book(session: Session):
+    books = session.query(Books).all()
+
+    print("\nYour Books:")
+    for book in books:
+        print(f"{book.book_id}. {book.title}")
+
+    choice = int(input("Choose a book to delete (pick ID, or 0 to cancel): "))
+
+    if choice == 0:
+        print("Cancelled.")
+        return
+
+    book = session.query(Books).filter_by(book_id=choice).first()
+    if not book:
+        print("Book not found.")
+        return
+
+    confirm = input(f"Are you sure you want to delete ? (y/N): ").strip().lower()
+    if confirm == 'y':
+        session.delete(book)
+        session.commit()
+        print(f"'{book.title}' deleted.")
+    else:
+        print("Cancelled.")
