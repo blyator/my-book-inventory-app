@@ -27,9 +27,7 @@ my_book_inventory/
 │   │   ├── 📘 books.py           # Book-related functions
 │   │   └── 🗃️ genres.py          # Genre-related functions
 │   └── 📦 main.py               # Main CLI menu
-
-
----
+````
 
 ##  Getting Started
 
@@ -38,7 +36,7 @@ my_book_inventory/
 ```bash
 git clone https://github.com/blyator/my-book-inventory-app/
 cd my_book_inventory/app
-````
+```
 
 ### 2. Create a Virtual Environment
 
