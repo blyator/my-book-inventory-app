@@ -14,6 +14,9 @@ class Books( Base ):
     genre_id =Column( Integer, ForeignKey("genres.genre_id") )
     title =Column( String, nullable = False )
 
+    author = relationship("Authors", back_populates="books")
+    genre = relationship("Genres", back_populates="books")
+
 
 
 class Authors( Base ):
@@ -22,6 +25,8 @@ class Authors( Base ):
     author_id = Column( Integer, primary_key =True )
     name =Column( String, nullable = False )
 
+    books = relationship("Books", back_populates="author", cascade="all, delete-orphan")
+
 
 
 class Genres( Base ):
@@ -29,3 +34,5 @@ class Genres( Base ):
     
     genre_id = Column( Integer, primary_key =True )
     genre =Column( String, nullable = False, unique=True )
+
+    books = relationship("Books", back_populates="genre", cascade="all, delete-orphan")
