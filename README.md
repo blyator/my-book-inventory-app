@@ -13,10 +13,10 @@
 
 ## Technologies Used
 
-- Python 3
-- SQLAlchemy (ORM)
-- SQLite (Database)
-- Pipenv (Virtual Environment & Dependency Management)
+- Python 
+- SQLAlchemy for ORM
+- SQLite for Database
+- Pipenv for Virtual Environment 
 
 ---
 
