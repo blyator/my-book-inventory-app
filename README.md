@@ -28,14 +28,14 @@ my_book_inventory/
 │
 ├── 📁 app/
 │   ├── 📁 db/
-│   │   ├── 🗄️ books.db          # SQLite database
-│   │   ├── 📄 models.py         # SQLAlchemy models
-│   │   └── ⚙️ seed.py           # Sample data seeding script
+│   │   ├── 🗄️ books.sqlite3      # SQLite database
+│   │   ├── 📄 models.py          # SQLAlchemy models
+│   │   └── ⚙️ seed.py            # Sample data seeding script
 │   ├── 📁 library/
-│   │   ├── ✍️ authors.py        # Author-related functions
+│   │   ├── ✍️ authors.py         # Author-related functions
 │   │   ├── 📘 books.py           # Book-related functions
 │   │   └── 🗃️ genres.py          # Genre-related functions
-│   └── 📦 main.py               # Main CLI menu
+│   └── 📦 main.py                # Main CLI menu
 ````
 
 ##  Getting Started

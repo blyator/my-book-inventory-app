@@ -43,13 +43,18 @@ def update_genre(session: Session):
     genre = session.query(Genres).filter_by(genre_id=genre_id).first()
 
     os.system("clear")
+    
+    if not genre:
+        print(f"No genre found.")
+        return
+    
 
     new_name = input(f"New name for '{genre.genre}' (leave blank to keep): ").strip()
 
     os.system("clear")
 
     if new_name:
-        genre.genre = new_name
+        genre.name = new_name
         session.commit()
         print("Genre updated.")
     else:
@@ -73,7 +78,11 @@ def delete_genre(session: Session):
 
     os.system("clear")
 
-    confirm = input(f"Are you sure you want to delete '{genre.genre}'? (y/N): ").strip().lower()
+    if not genre:
+        print("No genre found.")
+        return
+
+    confirm = input(f"Are you sure you want to delete '{genre.genre}'? (Y/n): ").strip().lower()
     if confirm == 'y':
         os.system("clear")
         session.delete(genre)

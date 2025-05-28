@@ -107,7 +107,6 @@ def manage_genres():
 
 def main():
     while True:
-        os.system("clear")
         print("\n********** My Book Inventory **********")
         print("\nWhat would you like to do?")
         print("\n1. Manage Books")
