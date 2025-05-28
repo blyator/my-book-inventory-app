@@ -11,6 +11,15 @@
 
 ---
 
+## Technologies Used
+
+- Python 3
+- SQLAlchemy (ORM)
+- SQLite (Database)
+- Pipenv (Virtual Environment & Dependency Management)
+
+---
+
 ## Project Structure
 
 ````
@@ -100,3 +109,9 @@ SOFTWARE.
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+---
+
+## Support / Contact
+
+For support, questions, or feedback, please open an issue on [GitHub](https://github.com/blyator/my-book-inventory-app/issues) or contact Developer at dmnbilly@gmail.com
