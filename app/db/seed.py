@@ -5,7 +5,7 @@ from models import Base, Books, Authors, Genres
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, "books.db")
+db_path = os.path.join(BASE_DIR, "books.sqlite")
 engine = create_engine(f"sqlite:///{db_path}")
 
 

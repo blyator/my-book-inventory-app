@@ -6,7 +6,7 @@ from library.authors import add_author, delete_author, update_author, list_autho
 from library.books import add_book, delete_book, update_book, get_books, book_by_title
 import os
 
-engine = create_engine("sqlite:///app/db/books.db")
+engine = create_engine("sqlite:///app/db/books.sqlite")
 Session = sessionmaker(bind=engine)
 session = Session()
 Base.metadata.create_all(engine)
