@@ -38,7 +38,7 @@ my_book_inventory/
 │   └── 📦 main.py                # Main CLI menu
 ````
 
-##  Getting Started
+##  Setting up the App
 
 ### 1. Clone the Repository
 

@@ -9,7 +9,6 @@ import os
 engine = create_engine("sqlite:///app/db/books.sqlite")
 Session = sessionmaker(bind=engine)
 session = Session()
-Base.metadata.create_all(engine)
 
 def manage_books():
     while True:
